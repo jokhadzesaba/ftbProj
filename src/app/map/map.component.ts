@@ -1,22 +1,36 @@
-import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PanelComponent } from '../panel/panel.component';
+
+import { RestService } from '../services/rest.service';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [GoogleMapsModule,PanelComponent],
+  imports: [GoogleMapsModule, PanelComponent],
   templateUrl: './map.component.html',
-  styleUrl: './map.component.scss'
+  styleUrl: './map.component.scss',
 })
 export class MapComponent {
-  center: google.maps.LatLngLiteral = { lat: 41.6938, lng: 44.8015 };
+  center: google.maps.LatLngLiteral = { lat:41.723271, lng:44.718339};
   zoom = 16;
-
+  stadiumIndex: number = -1;
   stadiums = [
-    { stadiumIndex:0, name: 'Stadium 1', position: { lat: 41.725738, lng: 44.71887 } },
-    { stadiumIndex:1, name: 'Stadium 2', position: { lat: 41.692, lng: 44.7995 } },
-    { stadiumIndex:2, name: 'Stadium 3', position: { lat: 41.691, lng: 44.802 } },
+    {
+      stadiumIndex: 1,
+      name: 'Stadium 1',
+      position: { lat: 41.725738, lng: 44.71887 },
+    },
+    {
+      stadiumIndex: 2,
+      name: 'Stadium 2',
+      position: { lat: 41.724259, lng: 44.718535 },
+    },
+    {
+      stadiumIndex: 3,
+      name: 'Stadium 3',
+      position: { lat: 41.724565, lng: 44.721159 },
+    },
   ];
 
   @ViewChild('mapElement', { static: false }) mapElement!: ElementRef;
@@ -54,15 +68,15 @@ export class MapComponent {
         });
 
         marker.addListener('click', () => {
-          this.onStadiumClick(stadium);
+          this.onStadiumClick(stadium.stadiumIndex);
+          
         });
       });
     } else {
       console.error('Map element not found');
     }
   }
-
-  onStadiumClick(stadium: any) {
-    console.log('Stadium clicked:', stadium.name, stadium.position);
+  onStadiumClick(stadiumIndex: number) {
+    this.stadiumIndex = stadiumIndex
   }
 }

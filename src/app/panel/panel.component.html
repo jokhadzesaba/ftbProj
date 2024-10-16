@@ -1,1 +1,25 @@
-<p>panel works!</p>
+<div *ngIf="stadiumData | async as stadium" class="panel">
+  <div class="stadium">
+    <h3>About Stadium</h3>
+    <div class="stadium-info">
+      <li>Open Till {{ stadium.open }} A.M</li>
+      <li>Has Lights: {{ stadium.light| convertBoolean}}</li>
+      <li>Recommended: {{ stadium.recomendedPlay }}</li>
+      <li>Currently: {{stadium.joined | countCurrentQuantity}} people</li>
+      <li>Today Reservetions: {{ stadium.reservetions.length }}</li>
+      <li>Has Basketball Shield:{{ stadium.basketball |convertBoolean }}</li>
+    </div>
+  </div>
+  <div class="join-reserv">
+    <button>Join</button>
+    <button>Reserve</button>
+  </div>
+</div>
+<div class="data" *ngIf="stadiumData | async as stadium">
+  <div class="idk" *ngFor="let joins of stadium.joined">
+    <app-joined [joined]="joins"></app-joined>
+  </div>
+  <div *ngFor="let reservs of stadium.reservetions">
+    <app-joined [reservetions]="reservs"></app-joined>
+  </div>
+</div>

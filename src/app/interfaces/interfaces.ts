@@ -1,14 +1,25 @@
 export interface Stadium{
-    ball:boolean,
     light:boolean,
-    people:number,
-    reservetions:Reservetion[]
+    open:number,
+    basketball:boolean,
+    recomendedPlay:string,
+    reservetions:Reservetion[],
+    joined:Join[]
 }
-interface Reservetion{
+export interface Reservetion{
     phoneNumber:string,
     people:number,
     ball:boolean,
-    description:string,
+    message:string,
     date:Date,
-    hour:number,
+    avarageAge:number,
+}
+export interface Join{
+    joinDate:Date,
+    ball:boolean,
+    people:number,
+    avarageAge:number,
+    phoneNumber:string,
+    message:string,
+
 }

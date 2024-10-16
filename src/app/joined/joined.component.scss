@@ -1,0 +1,26 @@
+.join-container {
+  width: 300px;
+  height: 300px;
+  background-color: rgb(102, 159, 140);
+  border: 1px solid green;
+  position: relative;
+  ul {
+    padding: 13%;
+    li {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: white;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+  .join {
+    color: rgb(245, 229, 229);
+    position: absolute;
+    right: 40px;
+  }
+  .reserve {
+    color: white;
+    font-size: 18px;
+    padding-left: 10px;
+  }
+}
