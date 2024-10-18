@@ -6,6 +6,7 @@
   position: relative;
   ul {
     padding: 13%;
+    height: 230px;
     li {
       font-size: 18px;
       margin-bottom: 8px;
@@ -23,4 +24,14 @@
     font-size: 18px;
     padding-left: 10px;
   }
+}
+.message{
+  white-space: nowrap;
+  overflow-x: scroll; 
+
+}
+
+
+.background{
+  background-color: rgb(171, 39, 171);
 }

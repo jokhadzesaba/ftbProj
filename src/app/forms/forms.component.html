@@ -1,0 +1,130 @@
+<div class="form-toggle-container">
+  <div>
+    <button (click)="toggleFormMethod(true)">Join</button>
+    <div [ngClass]="toggleForm ? 'highLight' : ''"></div>
+  </div>
+  <div>
+    <button (click)="toggleFormMethod(false)">Plan</button>
+    <div [ngClass]="!toggleForm ? 'highLight' : ''"></div>
+  </div>
+</div>
+<div class="form-container">
+  <form *ngIf="!toggleForm" [formGroup]="planForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="numberOfPeople">Number of People</label>
+      <input
+        id="numberOfPeople"
+        formControlName="numberOfPeople"
+        type="number"
+      />
+      <div
+        *ngIf="
+          planForm.get('numberOfPeople')?.invalid &&
+          planForm.get('numberOfPeople')?.touched
+        "
+        class="error"
+      >
+        Please enter a valid number (minimum 1).
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="eventDate">Event Date</label>
+      <input id="eventDate" formControlName="eventDate" type="date" />
+    </div>
+
+    <div class="form-group">
+      <label for="eventTime">Event Time</label>
+      <input id="eventTime" formControlName="eventTime" type="time" />
+    </div>
+    <div class="form-group">
+      <label for="ageGroup">Age Group</label>
+      <select id="ageGroup" formControlName="ageGroup">
+        <option *ngFor="let option of ageOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          planForm.get('ageGroup')?.invalid &&
+          planForm.get('ageGroup')?.touched
+        "
+        class="error"
+      >
+        Please select an age group.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input type="checkbox" formControlName="hasBall" /> Do you have a ball?
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" formControlName="message"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input id="phoneNumber" formControlName="phoneNumber" type="tel" />
+    </div>
+    <button type="submit" (click)="onPlanSubmit()" [disabled]="planForm.invalid">Submit</button>
+  </form>
+  <form *ngIf="toggleForm" [formGroup]="stadiumForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="numberOfPeople">Number of People</label>
+      <input
+        id="numberOfPeople"
+        formControlName="numberOfPeople"
+        type="number"
+      />
+      <div
+        *ngIf="
+          stadiumForm.get('numberOfPeople')?.invalid &&
+          stadiumForm.get('numberOfPeople')?.touched
+        "
+        class="error"
+      >
+        Please enter a valid number (minimum 1).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ageGroup">Age Group</label>
+      <select id="ageGroup" formControlName="ageGroup">
+        <option *ngFor="let option of ageOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          stadiumForm.get('ageGroup')?.invalid &&
+          stadiumForm.get('ageGroup')?.touched
+        "
+        class="error"
+      >
+        Please select an age group.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input type="checkbox" formControlName="hasBall" /> Do you have a ball?
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" formControlName="message"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input id="phoneNumber" formControlName="phoneNumber" type="tel" />
+    </div>
+
+    <button type="submit" [disabled]="stadiumForm.invalid">Submit</button>
+  </form>
+</div>

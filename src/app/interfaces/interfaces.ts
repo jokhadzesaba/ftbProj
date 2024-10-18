@@ -11,14 +11,15 @@ export interface Reservetion{
     people:number,
     ball:boolean,
     message:string,
-    date:Date,
-    avarageAge:number,
+    date:string,
+    hour:string,
+    avarageAge:string,
 }
 export interface Join{
     joinDate:Date,
     ball:boolean,
     people:number,
-    avarageAge:number,
+    avarageAge:string,
     phoneNumber:string,
     message:string,
 

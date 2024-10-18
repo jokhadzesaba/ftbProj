@@ -1,17 +1,32 @@
-<div class="join-container">
+<div
+  [ngClass]="reservetions ? 'background' : 'join-container'"
+  class="join-container"
+>
   <ul *ngIf="joined">
     <li>People: {{ joined.people }}</li>
-    <li>Ball: {{joined.ball | convertBoolean}}</li>
+    <li>Ball: {{ joined.ball | convertBoolean }}</li>
     <li>Avarage Age: {{ joined.avarageAge }}</li>
-    <li>Number: {{ joined.phoneNumber }}</li>
-    <li *ngIf="joined.message">Message: {{ joined.message }}</li>
+    <li *ngIf="joined.phoneNumber">Number: {{ joined.phoneNumber }}</li>
+    <li
+      [ngClass]="joined.message.length > 40 ? 'message' : ''"
+      *ngIf="joined.message"
+    >
+      {{ joined.message }}
+    </li>
   </ul>
   <ul *ngIf="reservetions">
     <li>People: {{ reservetions.people }}</li>
-    <li>Ball: {{reservetions.ball | convertBoolean }}</li>
+    <li>Ball: {{ reservetions.ball | convertBoolean }}</li>
     <li>Avarage Age: {{ reservetions.avarageAge }}</li>
-    <li>Number: {{ reservetions.phoneNumber }}</li>
-    <li *ngIf="reservetions.message">Message: {{ reservetions.message }}</li>
+    <li *ngIf="reservetions.phoneNumber">
+      Number: {{ reservetions.phoneNumber }}
+    </li>
+    <li
+      [ngClass]="reservetions.message.length > 60 ? 'message' : ''"
+      *ngIf="reservetions.message"
+    >
+      {{ reservetions.message }}
+    </li>
   </ul>
   <p class="join" *ngIf="joined">1 Hour Ago</p>
   <p class="reserve" *ngIf="reservetions">Date: 23 Octomber, 19:00 hours</p>
