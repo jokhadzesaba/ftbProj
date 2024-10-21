@@ -1,33 +1,42 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PanelComponent } from '../panel/panel.component';
 
 import { RestService } from '../services/rest.service';
+import { HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [GoogleMapsModule, PanelComponent],
+  imports: [CommonModule, GoogleMapsModule, PanelComponent,TranslateModule],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
 })
 export class MapComponent {
-  center: google.maps.LatLngLiteral = { lat:41.723271, lng:44.718339};
+  center: google.maps.LatLngLiteral = { lat: 41.723271, lng: 44.718339 };
   zoom = 16;
   stadiumIndex: number = -1;
+  rules = true;
+  constructor(
+    private http: HttpClient,
+    private translateService: TranslateService
+  ) {}
+
   stadiums = [
     {
-      stadiumIndex: 1,
+      stadiumIndex: 0,
       name: 'Stadium 1',
       position: { lat: 41.725738, lng: 44.71887 },
     },
     {
-      stadiumIndex: 2,
+      stadiumIndex: 1,
       name: 'Stadium 2',
       position: { lat: 41.724259, lng: 44.718535 },
     },
     {
-      stadiumIndex: 3,
+      stadiumIndex: 2,
       name: 'Stadium 3',
       position: { lat: 41.724565, lng: 44.721159 },
     },
@@ -69,7 +78,6 @@ export class MapComponent {
 
         marker.addListener('click', () => {
           this.onStadiumClick(stadium.stadiumIndex);
-          
         });
       });
     } else {
@@ -77,6 +85,13 @@ export class MapComponent {
     }
   }
   onStadiumClick(stadiumIndex: number) {
-    this.stadiumIndex = stadiumIndex
+    this.stadiumIndex = stadiumIndex;
+  }
+
+  changeLng(lng:'en'|'geo'){
+    this.translateService.use(lng)
+  }
+  moveForward(){
+    this.rules = false
   }
 }

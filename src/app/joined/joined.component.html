@@ -30,7 +30,10 @@
       {{ reservetions.message }}
     </li>
   </ul>
-  <p class="join" *ngIf="joined">{{ hours }} {{ "Hours ago" | translate }}</p>
+  <p class="join" *ngIf="joined && hours && !minutes">{{ hours }} {{ "Hours ago" | translate }}</p>
+  <p class="join" *ngIf="joined && hours && minutes">{{ hours }}:{{minutes}} {{ "ago" | translate }}</p>
+  <p class="join" *ngIf="joined && !hours && minutes">{{minutes}} {{ "min ago" | translate }}</p>
+  <p class="join" *ngIf="joined && !hours && !minutes">{{minutes}} {{ "now" | translate }}</p>
   <p class="reserve" *ngIf="reservetions">
     {{ "Date" | translate }}: {{ reservetions.date }}, {{ reservetions.hour }}
   </p>

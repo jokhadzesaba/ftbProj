@@ -16,6 +16,7 @@ export class JoinedComponent implements OnInit {
   @Input() joined?: Join;
   @Input() reservetions?: Reservetion;
   public hours = 0;
+  public minutes = 0;
 
   ngOnInit(): void {
     this.dateTransform();
@@ -28,7 +29,11 @@ export class JoinedComponent implements OnInit {
       const diffInMs = Math.abs(now.getTime() - joinDate.getTime());
       const msInOneHour = 60 * 60 * 1000;
       const hours = Math.floor(diffInMs / msInOneHour);
+      const remainingMs = diffInMs % msInOneHour;
+      const minutes = Math.floor(remainingMs / (60 * 1000));
+      this.minutes = minutes
       this.hours = hours;
+      
       
     }
   }

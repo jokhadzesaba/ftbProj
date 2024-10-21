@@ -9,7 +9,7 @@
       <li>{{"Open"|translate}} {{ stadium.open }} A.M</li>
       <li> {{"Has Lights"|translate}}: {{ (stadium.light | convertBoolean)|translate }}</li>
       <li> {{"Recommended"|translate}}: {{ stadium.recomendedPlay }}</li>
-      <li> {{"Currently"|translate}}: {{ stadium.joined | countCurrentQuantity }} {{"People"|translate}}</li>
+      <li> {{"Currently"|translate}}: {{ stadium.joined |countCurrentQuantity}}</li>
       <li>{{"Planned"|translate}}: {{ stadium.reservetions.length }}</li>
       <li> {{"Has Basketball Shield"|translate}}:{{ (stadium.basketball | convertBoolean)|translate }}</li>
     </div>

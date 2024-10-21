@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-forms',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,TranslateModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './forms.component.html',
   styleUrl: './forms.component.scss',
 })
@@ -20,7 +20,8 @@ export class FormsComponent {
   stadiumForm: FormGroup;
   ageOptions: string[] = ['14+', '16+', '18+', '21+', '25+'];
   planForm: FormGroup;
-  @Input() toggleForm = true
+  minDate = new Date()
+  @Input() toggleForm = true;
   @Input() stadiumIndex?: number;
 
   constructor(private fb: FormBuilder, private service: RestService) {
@@ -46,7 +47,11 @@ export class FormsComponent {
   }
 
   onSubmit() {
-    if (this.stadiumForm.valid && this.stadiumIndex) {
+    if (
+      this.stadiumForm.valid &&
+      this.stadiumIndex !== undefined &&
+      this.stadiumIndex > -1
+    ) {
       const numberOfPeople = this.stadiumForm
         .get('numberOfPeople')
         ?.getRawValue();
@@ -63,11 +68,17 @@ export class FormsComponent {
           phoneNumber,
           ageGroup
         )
-        .subscribe();
+        .subscribe(() => {
+          this.stadiumForm.reset();
+        });
     }
   }
   onPlanSubmit() {
-    if (this.planForm.valid && this.stadiumIndex) {
+    if (
+      this.planForm.valid &&
+      this.stadiumIndex !== undefined &&
+      this.stadiumIndex > -1
+    ) {
       const numberOfPeople = this.planForm.get('numberOfPeople')?.getRawValue();
       const hasBall = this.planForm.get('hasBall')?.getRawValue();
       const message = this.planForm.get('message')?.getRawValue();
@@ -75,16 +86,20 @@ export class FormsComponent {
       const ageGroup = this.planForm.get('ageGroup')?.getRawValue();
       const eventDate = this.planForm.get('eventDate')?.getRawValue();
       const eventTime = this.planForm.get('eventTime')?.getRawValue();
-      this.service.addPlan(
-        this.stadiumIndex,
-        numberOfPeople,
-        hasBall,
-        message,
-        phoneNumber,
-        ageGroup,
-        eventDate,
-        eventTime
-      ).subscribe();
+      this.service
+        .addPlan(
+          this.stadiumIndex,
+          numberOfPeople,
+          hasBall,
+          message,
+          phoneNumber,
+          ageGroup,
+          eventDate,
+          eventTime
+        )
+        .subscribe(() => {
+          this.planForm.reset();
+        });
     }
   }
 }

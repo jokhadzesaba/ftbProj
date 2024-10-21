@@ -34,7 +34,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class PanelComponent implements OnChanges, OnInit {
   @Input() stadiumIndex?: number;
   public stadiumData?: Observable<Stadium>;
-  toggle: boolean = false;
+  toggle: boolean = true;
   public joined: Join[] = [];
   constructor(
     private service: RestService,
@@ -45,8 +45,25 @@ export class PanelComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['stadiumIndex'] && this.stadiumIndex) {
-      this.stadiumData = this.service.getStadiumData(this.stadiumIndex);
+    if (
+      changes['stadiumIndex'] &&
+      this.stadiumIndex !== undefined &&
+      this.stadiumIndex > -1
+    ) {
+      this.stadiumData = this.service.getStadiumData(this.stadiumIndex).pipe(
+        map((stadium) => {
+          if (stadium && stadium.joined) {
+            const twoHoursInMs = 2 * 60 * 60 * 1000;
+            const currentTime = new Date().getTime();
+            stadium.joined = stadium.joined.filter((join: Join) => {
+              const joinDate = new Date(join.joinDate).getTime();
+              return currentTime - joinDate <= twoHoursInMs;
+            });
+          }
+
+          return stadium;
+        })
+      );
     }
   }
 
@@ -63,6 +80,6 @@ export class PanelComponent implements OnChanges, OnInit {
   }
   changeLng(lng: 'en' | 'geo') {
     this.translateService.use(lng);
-    console.log('Language changed to:', lng);
+
   }
 }

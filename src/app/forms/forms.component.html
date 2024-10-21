@@ -9,7 +9,7 @@
   </div>
 </div>
 <div class="form-container">
-  <form *ngIf="!toggleForm" [formGroup]="planForm" (ngSubmit)="onSubmit()">
+  <form *ngIf="!toggleForm" [formGroup]="planForm">
     <div class="form-group">
       <label for="numberOfPeople">{{"Number of People"|translate}}:</label>
       <input
@@ -29,7 +29,7 @@
     </div>
     <div class="form-group">
       <label for="eventDate">{{"Event Date"|translate}}:</label>
-      <input id="eventDate" formControlName="eventDate" type="date" />
+      <input id="eventDate"  [min]="minDate" formControlName="eventDate" type="date" />
     </div>
 
     <div class="form-group">
@@ -72,7 +72,7 @@
     </div>
     <button type="submit" (click)="onPlanSubmit()" [disabled]="planForm.invalid">{{"Submit"|translate}}</button>
   </form>
-  <form *ngIf="toggleForm" [formGroup]="stadiumForm" (ngSubmit)="onSubmit()">
+  <form *ngIf="toggleForm" [formGroup]="stadiumForm">
     <div class="form-group">
       <label for="numberOfPeople">{{"Number of People"|translate}}</label>
       <input
@@ -125,6 +125,6 @@
       <input id="phoneNumber" formControlName="phoneNumber" type="tel" />
     </div>
 
-    <button type="submit" [disabled]="stadiumForm.invalid">{{"Submit"|translate}}</button>
+    <button type="submit" (click)="onSubmit()" [disabled]="stadiumForm.invalid">{{"Submit"|translate}}</button>
   </form>
 </div>
