@@ -1,32 +1,56 @@
 <div *ngIf="stadiumData | async as stadium" class="panel">
   <div class="translate-buttons">
-    <button (click)="changeLng('en')">{{"ENG"|translate}}</button>
-    <button (click)="changeLng('geo')">{{"GEO"|translate}}</button>
+    <button (click)="changeLng('en')">{{ "ENG" | translate }}</button>
+    <button (click)="changeLng('geo')">{{ "GEO" | translate }}</button>
   </div>
   <div class="stadium">
-    <h3>{{"About Stadium"|translate}}</h3>
+    <h3>{{ "About Stadium" | translate }}</h3>
     <div class="stadium-info">
-      <li>{{"Open"|translate}} {{ stadium.open }} A.M</li>
-      <li> {{"Has Lights"|translate}}: {{ (stadium.light | convertBoolean)|translate }}</li>
-      <li> {{"Recommended"|translate}}: {{ stadium.recomendedPlay }}</li>
-      <li> {{"Currently"|translate}}: {{ stadium.joined |countCurrentQuantity}}</li>
-      <li>{{"Planned"|translate}}: {{ stadium.reservetions.length }}</li>
-      <li> {{"Has Basketball Shield"|translate}}:{{ (stadium.basketball | convertBoolean)|translate }}</li>
+      <li>{{ "Open" | translate }} {{ stadium.open }} A.M</li>
+      <li>
+        {{ "Has Lights" | translate }}:
+        {{ stadium.light | convertBoolean | translate }}
+      </li>
+      <li>{{ "Recommended" | translate }}: {{ stadium.recomendedPlay }}</li>
+      <li>
+        {{ "Currently" | translate }}:
+        {{ stadium.joined | countCurrentQuantity }}
+      </li>
+      <li>{{ "Planned" | translate }}: {{ stadium.reservetions.length }}</li>
+      <li>
+        {{ "Has Basketball Shield" | translate }}:{{
+          stadium.basketball | convertBoolean | translate
+        }}
+      </li>
     </div>
   </div>
   <div class="join-reserv">
-    <button (click)="scrollToform(true)"> {{"Join"|translate}}</button>
-    <button (click)="scrollToform(false)">{{"Plan"|translate}}</button>
+    <button (click)="scrollToform(true)">{{ "Join" | translate }}</button>
+    <button (click)="scrollToform(false)">{{ "Plan" | translate }}</button>
   </div>
 </div>
 <div class="data" *ngIf="stadiumData | async as stadium">
-  <div *ngFor="let joins of stadium.joined">
-    <app-joined [joined]="joins"></app-joined>
+  <p *ngIf="(stadium.joined | slice : 0).length === 0">
+    {{ "No People At The Stadium Right Now With Our Info" | translate }}
+  </p>
+  <p *ngIf="stadium.joined.length >= 1">
+    {{ "People on Stadium" | translate }}:
+  </p>
+  <div>
+    <div *ngFor="let joins of stadium.joined | slice : 0">
+      <app-joined [joined]="joins"></app-joined>
+    </div>
   </div>
 </div>
 <div class="data" *ngIf="stadiumData | async as stadium">
-  <div *ngFor="let reservs of stadium.reservetions">
-    <app-joined [reservetions]="reservs"></app-joined>
+  <p *ngIf="stadium.reservetions.length >= 1">{{ "Plans" | translate }}:</p>
+  <p *ngIf="(stadium.reservetions | slice : 0).length === 0">
+    {{ "No Plans Right Now" | translate }}
+  </p>
+  <div>
+    <div *ngFor="let reservs of stadium.reservetions | slice : 0">
+      <app-joined [reservetions]="reservs"></app-joined>
+    </div>
   </div>
 </div>
 <app-forms
