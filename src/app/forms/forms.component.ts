@@ -7,11 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { RestService } from '../services/rest.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forms',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,TranslateModule],
   templateUrl: './forms.component.html',
   styleUrl: './forms.component.scss',
 })

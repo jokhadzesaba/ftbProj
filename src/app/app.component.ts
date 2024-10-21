@@ -1,11 +1,6 @@
 import {
   Component,
-  OnInit,
-  ApplicationRef,
-  ElementRef,
-  ViewChild,
 } from '@angular/core';
-
 
 @Component({
   selector: 'app-root',

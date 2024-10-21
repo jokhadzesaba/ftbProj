@@ -3,10 +3,12 @@
   class="join-container"
 >
   <ul *ngIf="joined">
-    <li>People: {{ joined.people }}</li>
-    <li>Ball: {{ joined.ball | convertBoolean }}</li>
-    <li>Avarage Age: {{ joined.avarageAge }}</li>
-    <li *ngIf="joined.phoneNumber">Number: {{ joined.phoneNumber }}</li>
+    <li>{{ "People" | translate }}: {{ joined.people }}</li>
+    <li>{{ "Ball" | translate }}: {{ (joined.ball | convertBoolean)|translate }}</li>
+    <li>{{ "Age" | translate }}: {{ joined.avarageAge }}</li>
+    <li *ngIf="joined.phoneNumber">
+      {{ "Number" | translate }}: {{ joined.phoneNumber }}
+    </li>
     <li
       [ngClass]="joined.message.length > 40 ? 'message' : ''"
       *ngIf="joined.message"
@@ -15,19 +17,21 @@
     </li>
   </ul>
   <ul *ngIf="reservetions">
-    <li>People: {{ reservetions.people }}</li>
-    <li>Ball: {{ reservetions.ball | convertBoolean }}</li>
-    <li>Avarage Age: {{ reservetions.avarageAge }}</li>
+    <li>{{ "People" | translate }}: {{ reservetions.people }}</li>
+    <li>{{ "Ball" | translate }}: {{ (reservetions.ball | convertBoolean)|translate }}</li>
+    <li>{{ "Age" | translate }}: {{ reservetions.avarageAge }}</li>
     <li *ngIf="reservetions.phoneNumber">
-      Number: {{ reservetions.phoneNumber }}
+      {{ "Number" | translate }}: {{ reservetions.phoneNumber }}
     </li>
     <li
-      [ngClass]="reservetions.message.length > 60 ? 'message' : ''"
+      [ngClass]="reservetions.message.length > 40 ? 'message' : ''"
       *ngIf="reservetions.message"
     >
       {{ reservetions.message }}
     </li>
   </ul>
-  <p class="join" *ngIf="joined">1 Hour Ago</p>
-  <p class="reserve" *ngIf="reservetions">Date: 23 Octomber, 19:00 hours</p>
+  <p class="join" *ngIf="joined">{{ hours }} {{ "Hours ago" | translate }}</p>
+  <p class="reserve" *ngIf="reservetions">
+    {{ "Date" | translate }}: {{ reservetions.date }}, {{ reservetions.hour }}
+  </p>
 </div>

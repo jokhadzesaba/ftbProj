@@ -8,13 +8,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RestService } from '../services/rest.service';
-import { Stadium } from '../interfaces/interfaces';
-import { Observable } from 'rxjs';
+import { Join, Stadium } from '../interfaces/interfaces';
+import { map, Observable } from 'rxjs';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { JoinedComponent } from '../joined/joined.component';
 import { ConvertBooleanPipe } from '../pipes/convert-boolean.pipe';
 import { CountCurrentQuantityPipe } from '../pipes/count-current-quantity.pipe';
 import { FormsComponent } from '../forms/forms.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-panel',
@@ -27,20 +28,28 @@ import { FormsComponent } from '../forms/forms.component';
     ConvertBooleanPipe,
     CountCurrentQuantityPipe,
     FormsComponent,
+    TranslateModule,
   ],
 })
 export class PanelComponent implements OnChanges, OnInit {
   @Input() stadiumIndex?: number;
   public stadiumData?: Observable<Stadium>;
   toggle: boolean = false;
-  constructor(private service: RestService, private scroll: ViewportScroller) {}
-  ngOnInit(): void {}
+  public joined: Join[] = [];
+  constructor(
+    private service: RestService,
+    private translateService: TranslateService
+  ) {}
+  ngOnInit(): void {
+    this.setDefault();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['stadiumIndex'] && this.stadiumIndex) {
       this.stadiumData = this.service.getStadiumData(this.stadiumIndex);
     }
   }
+
   scrollToform(togle: boolean) {
     this.toggle = togle;
     document.getElementById('form')!.scrollIntoView({
@@ -48,5 +57,12 @@ export class PanelComponent implements OnChanges, OnInit {
       block: 'start',
       inline: 'nearest',
     });
+  }
+  setDefault() {
+    this.translateService.setDefaultLang('en');
+  }
+  changeLng(lng: 'en' | 'geo') {
+    this.translateService.use(lng);
+    console.log('Language changed to:', lng);
   }
 }

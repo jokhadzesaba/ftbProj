@@ -1,17 +1,17 @@
 <div class="form-toggle-container">
   <div>
-    <button (click)="toggleFormMethod(true)">Join</button>
+    <button (click)="toggleFormMethod(true)">{{"Join"|translate}}</button>
     <div [ngClass]="toggleForm ? 'highLight' : ''"></div>
   </div>
   <div>
-    <button (click)="toggleFormMethod(false)">Plan</button>
+    <button (click)="toggleFormMethod(false)">{{"Plan"|translate}}</button>
     <div [ngClass]="!toggleForm ? 'highLight' : ''"></div>
   </div>
 </div>
 <div class="form-container">
   <form *ngIf="!toggleForm" [formGroup]="planForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="numberOfPeople">Number of People</label>
+      <label for="numberOfPeople">{{"Number of People"|translate}}:</label>
       <input
         id="numberOfPeople"
         formControlName="numberOfPeople"
@@ -24,20 +24,20 @@
         "
         class="error"
       >
-        Please enter a valid number (minimum 1).
+        {{"Please enter a valid number (minimum 1)"|translate}}.
       </div>
     </div>
     <div class="form-group">
-      <label for="eventDate">Event Date</label>
+      <label for="eventDate">{{"Event Date"|translate}}:</label>
       <input id="eventDate" formControlName="eventDate" type="date" />
     </div>
 
     <div class="form-group">
-      <label for="eventTime">Event Time</label>
+      <label for="eventTime">{{"Event Time"|translate}}:</label>
       <input id="eventTime" formControlName="eventTime" type="time" />
     </div>
     <div class="form-group">
-      <label for="ageGroup">Age Group</label>
+      <label for="ageGroup">{{"Age Group"|translate}}:</label>
       <select id="ageGroup" formControlName="ageGroup">
         <option *ngFor="let option of ageOptions" [value]="option">
           {{ option }}
@@ -51,30 +51,30 @@
         "
         class="error"
       >
-        Please select an age group.
+        {{"Please select an age group" |translate}}.
       </div>
     </div>
 
     <div class="form-group">
       <label>
-        <input type="checkbox" formControlName="hasBall" /> Do you have a ball?
+        <input type="checkbox" formControlName="hasBall" /> {{"Do you have a ball"|translate}}?
       </label>
     </div>
 
     <div class="form-group">
-      <label for="message">Message</label>
+      <label for="message">{{"Message"|translate}}:</label>
       <textarea id="message" formControlName="message"></textarea>
     </div>
 
     <div class="form-group">
-      <label for="phoneNumber">Phone Number</label>
+      <label for="phoneNumber">{{"Phone Number"|translate}}:</label>
       <input id="phoneNumber" formControlName="phoneNumber" type="tel" />
     </div>
-    <button type="submit" (click)="onPlanSubmit()" [disabled]="planForm.invalid">Submit</button>
+    <button type="submit" (click)="onPlanSubmit()" [disabled]="planForm.invalid">{{"Submit"|translate}}</button>
   </form>
   <form *ngIf="toggleForm" [formGroup]="stadiumForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="numberOfPeople">Number of People</label>
+      <label for="numberOfPeople">{{"Number of People"|translate}}</label>
       <input
         id="numberOfPeople"
         formControlName="numberOfPeople"
@@ -87,12 +87,12 @@
         "
         class="error"
       >
-        Please enter a valid number (minimum 1).
+        {{"Please enter a valid number (minimum 1)"|translate}}.
       </div>
     </div>
 
     <div class="form-group">
-      <label for="ageGroup">Age Group</label>
+      <label for="ageGroup">{{"Age Group"|translate}}:</label>
       <select id="ageGroup" formControlName="ageGroup">
         <option *ngFor="let option of ageOptions" [value]="option">
           {{ option }}
@@ -105,26 +105,26 @@
         "
         class="error"
       >
-        Please select an age group.
+        {{"Please select an age group"|translate}}.
       </div>
     </div>
 
     <div class="form-group">
       <label>
-        <input type="checkbox" formControlName="hasBall" /> Do you have a ball?
+        <input type="checkbox" formControlName="hasBall" /> {{"Do you have a ball"|translate}}?
       </label>
     </div>
 
     <div class="form-group">
-      <label for="message">Message</label>
+      <label for="message">{{"Message"|translate}}:</label>
       <textarea id="message" formControlName="message"></textarea>
     </div>
 
     <div class="form-group">
-      <label for="phoneNumber">Phone Number</label>
+      <label for="phoneNumber">{{"Phone Number"|translate}}:</label>
       <input id="phoneNumber" formControlName="phoneNumber" type="tel" />
     </div>
 
-    <button type="submit" [disabled]="stadiumForm.invalid">Submit</button>
+    <button type="submit" [disabled]="stadiumForm.invalid">{{"Submit"|translate}}</button>
   </form>
 </div>

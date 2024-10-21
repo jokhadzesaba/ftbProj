@@ -1,18 +1,22 @@
 <div *ngIf="stadiumData | async as stadium" class="panel">
+  <div class="translate-buttons">
+    <button (click)="changeLng('en')">{{"ENG"|translate}}</button>
+    <button (click)="changeLng('geo')">{{"GEO"|translate}}</button>
+  </div>
   <div class="stadium">
-    <h3>About Stadium</h3>
+    <h3>{{"About Stadium"|translate}}</h3>
     <div class="stadium-info">
-      <li>Open Till {{ stadium.open }} A.M</li>
-      <li>Has Lights: {{ stadium.light | convertBoolean }}</li>
-      <li>Recommended: {{ stadium.recomendedPlay }}</li>
-      <li>Currently: {{ stadium.joined | countCurrentQuantity }} people</li>
-      <li>Reservetions: {{ stadium.reservetions.length }}</li>
-      <li>Has Basketball Shield:{{ stadium.basketball | convertBoolean }}</li>
+      <li>{{"Open"|translate}} {{ stadium.open }} A.M</li>
+      <li> {{"Has Lights"|translate}}: {{ (stadium.light | convertBoolean)|translate }}</li>
+      <li> {{"Recommended"|translate}}: {{ stadium.recomendedPlay }}</li>
+      <li> {{"Currently"|translate}}: {{ stadium.joined | countCurrentQuantity }} {{"People"|translate}}</li>
+      <li>{{"Planned"|translate}}: {{ stadium.reservetions.length }}</li>
+      <li> {{"Has Basketball Shield"|translate}}:{{ (stadium.basketball | convertBoolean)|translate }}</li>
     </div>
   </div>
   <div class="join-reserv">
-    <button (click)="scrollToform(true)">Join</button>
-    <button (click)="scrollToform(false)">Reserve</button>
+    <button (click)="scrollToform(true)"> {{"Join"|translate}}</button>
+    <button (click)="scrollToform(false)">{{"Plan"|translate}}</button>
   </div>
 </div>
 <div class="data" *ngIf="stadiumData | async as stadium">
