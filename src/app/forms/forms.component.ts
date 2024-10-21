@@ -5,9 +5,20 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
+  ValidatorFn,
+  AbstractControl,
 } from '@angular/forms';
 import { RestService } from '../services/rest.service';
 import { TranslateModule } from '@ngx-translate/core';
+
+export function futureDateValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Compare only the date part
+    return selectedDate < today ? { 'pastDate': true } : null;
+  };
+}
 
 @Component({
   selector: 'app-forms',
@@ -36,10 +47,10 @@ export class FormsComponent {
       numberOfPeople: [null, [Validators.required, Validators.min(1)]],
       hasBall: [false, [Validators.required]],
       message: [''],
-      phoneNumber: [null],
+      phoneNumber: [null, [Validators.required]],
       ageGroup: [null, Validators.required],
-      eventDate: [null, Validators.required],
-      eventTime: [null, Validators.required],
+      eventDate: [null, [Validators.required, futureDateValidator()]],
+      eventTime: [null],
     });
   }
   toggleFormMethod(option: boolean) {

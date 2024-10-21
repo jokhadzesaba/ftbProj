@@ -59,12 +59,28 @@ export class PanelComponent implements OnChanges, OnInit {
               const joinDate = new Date(join.joinDate).getTime();
               return currentTime - joinDate <= twoHoursInMs;
             });
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            stadium.reservetions = stadium.reservetions.filter((event) => {
+              const dateObj = new Date(event.date);
+              const date = new Date(this.formatDateToYYYYMMDD(dateObj));
+              const eventDate = new Date(event.date);
+              return eventDate >= today;
+            });
           }
 
           return stadium;
         })
       );
     }
+  }
+  formatDateToYYYYMMDD(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+
+    return `${year}-${month}-${day}`;
   }
 
   scrollToform(togle: boolean) {
@@ -80,6 +96,5 @@ export class PanelComponent implements OnChanges, OnInit {
   }
   changeLng(lng: 'en' | 'geo') {
     this.translateService.use(lng);
-
   }
 }
