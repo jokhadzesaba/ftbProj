@@ -38,7 +38,7 @@
   </p>
   <div>
     <div *ngFor="let joins of stadium.joined | slice : 0">
-      <app-joined [joined]="joins"></app-joined>
+      <app-joined [stadiumIndex]="stadiumIndex" [joined]="joins"></app-joined>
     </div>
   </div>
 </div>
@@ -49,7 +49,7 @@
   </p>
   <div>
     <div *ngFor="let reservs of stadium.reservetions | slice : 0">
-      <app-joined [reservetions]="reservs"></app-joined>
+      <app-joined [stadiumIndex]="stadiumIndex" [reservetions]="reservs"></app-joined>
     </div>
   </div>
 </div>

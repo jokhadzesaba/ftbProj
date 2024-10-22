@@ -20,7 +20,8 @@ export class RestService {
     ball: boolean,
     message: string,
     phoneNumber: string,
-    ageGroup: string
+    ageGroup: string,
+    passoword: string
   ) {
     return this.http.get<Stadium>(`${this.url}/${stadiumIndex}.json`).pipe(
       tap((res) => {
@@ -32,8 +33,29 @@ export class RestService {
           avarageAge: ageGroup,
           message: message,
           joinDate: new Date(),
+          password: passoword,
         };
         const updatedArray = [...array, join];
+        res.joined = updatedArray;
+        this.http.patch(`${this.url}/${stadiumIndex}.json`, res).subscribe();
+      })
+    );
+  }
+  deletePlan(stadiumIndex: number, password: string) {
+   return this.http.get<Stadium>(`${this.url}/${stadiumIndex}.json`).pipe(
+      tap((res) => {
+        let array = res.reservetions;
+        const updatedArray = array.filter((x) => x.password !== password);
+        res.reservetions = updatedArray;
+        this.http.patch(`${this.url}/${stadiumIndex}.json`, res).subscribe();
+      })
+    );
+  }
+  deleteJoin(stadiumIndex: number, password: string) {
+   return this.http.get<Stadium>(`${this.url}/${stadiumIndex}.json`).pipe(
+      tap((res) => {
+        let array = res.joined;
+        const updatedArray = array.filter((x) => x.password !== password);
         res.joined = updatedArray;
         this.http.patch(`${this.url}/${stadiumIndex}.json`, res).subscribe();
       })
@@ -47,7 +69,8 @@ export class RestService {
     phoneNumber: string,
     ageGroup: string,
     eventDate: string,
-    eventTime: string
+    eventTime: string,
+    passoword: string
   ) {
     return this.http.get<Stadium>(`${this.url}/${stadiumIndex}.json`).pipe(
       tap((res) => {
@@ -60,6 +83,7 @@ export class RestService {
           message: message,
           date: eventDate,
           hour: eventTime,
+          password: passoword,
         };
         const updatedArray = [...array, join];
         res.reservetions = updatedArray;

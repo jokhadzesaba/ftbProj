@@ -4,8 +4,8 @@ export interface Stadium{
     basketball:boolean,
     recomendedPlay:string,
     reservetions:Reservetion[],
-    joined:Join[]
-}
+    joined:Join[],
+    }
 export interface Reservetion{
     phoneNumber:string,
     people:number,
@@ -14,6 +14,8 @@ export interface Reservetion{
     date:string,
     hour:string,
     avarageAge:string,
+    password:string
+
 }
 export interface Join{
     joinDate:Date,
@@ -22,5 +24,7 @@ export interface Join{
     avarageAge:string,
     phoneNumber:string,
     message:string,
+    password:string
+
 
 }

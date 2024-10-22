@@ -33,7 +33,13 @@
 
   .form-group {
     margin-bottom: 25px;
-
+    img{
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 12px;
+      bottom: 4px;
+    }
     label {
       font-size: 14px;
       font-weight: 600;
@@ -41,6 +47,13 @@
       display: block;
       margin-bottom: 8px;
     }
+    >div{
+      position: relative;
+      .last{
+        height: 60px;
+      }
+    }
+
 
     input,
     textarea,

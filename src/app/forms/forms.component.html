@@ -1,17 +1,17 @@
 <div class="form-toggle-container">
   <div>
-    <button (click)="toggleFormMethod(true)">{{"Join"|translate}}</button>
+    <button (click)="toggleFormMethod(true)">{{ "Join" | translate }}</button>
     <div [ngClass]="toggleForm ? 'highLight' : ''"></div>
   </div>
   <div>
-    <button (click)="toggleFormMethod(false)">{{"Plan"|translate}}</button>
+    <button (click)="toggleFormMethod(false)">{{ "Plan" | translate }}</button>
     <div [ngClass]="!toggleForm ? 'highLight' : ''"></div>
   </div>
 </div>
 <div class="form-container">
   <form *ngIf="!toggleForm" [formGroup]="planForm">
     <div class="form-group">
-      <label for="numberOfPeople">{{"Number of People"|translate}}:</label>
+      <label for="numberOfPeople">{{ "Number of People" | translate }}:</label>
       <input
         id="numberOfPeople"
         formControlName="numberOfPeople"
@@ -24,29 +24,34 @@
         "
         class="error"
       >
-        {{"Please enter a valid number (minimum 1)"|translate}}.
+        {{ "Please enter a valid number (minimum 1)" | translate }}.
       </div>
     </div>
     <div class="form-group">
-      <label for="eventDate">{{"Event Date"|translate}}:</label>
-      <input id="eventDate"  [min]="minDate" formControlName="eventDate" type="date" />
+      <label for="eventDate">{{ "Event Date" | translate }}:</label>
+      <input
+        id="eventDate"
+        [min]="minDate"
+        formControlName="eventDate"
+        type="date"
+      />
       <div
-      *ngIf="
-        planForm.get('eventDate')?.invalid &&
-        planForm.get('eventDate')?.touched
-      "
-      class="error"
-    >
-      {{"Please choose future date"|translate}}.
-    </div>
+        *ngIf="
+          planForm.get('eventDate')?.invalid &&
+          planForm.get('eventDate')?.touched
+        "
+        class="error"
+      >
+        {{ "Please choose future date" | translate }}.
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="eventTime">{{"Event Time"|translate}}:</label>
+      <label for="eventTime">{{ "Event Time" | translate }}:</label>
       <input id="eventTime" formControlName="eventTime" type="time" />
     </div>
     <div class="form-group">
-      <label for="ageGroup">{{"Age Group"|translate}}:</label>
+      <label for="ageGroup">{{ "Age Group" | translate }}:</label>
       <select id="ageGroup" formControlName="ageGroup">
         <option *ngFor="let option of ageOptions" [value]="option">
           {{ option }}
@@ -55,35 +60,68 @@
 
       <div
         *ngIf="
-          planForm.get('ageGroup')?.invalid &&
-          planForm.get('ageGroup')?.touched
+          planForm.get('ageGroup')?.invalid && planForm.get('ageGroup')?.touched
         "
         class="error"
       >
-        {{"Please select an age group" |translate}}.
+        {{ "Please select an age group" | translate }}.
       </div>
     </div>
 
     <div class="form-group">
       <label>
-        <input type="checkbox" formControlName="hasBall" /> {{"Do you have a ball"|translate}}?
+        <input type="checkbox" formControlName="hasBall" />
+        {{ "Do you have a ball" | translate }}?
       </label>
     </div>
-
     <div class="form-group">
-      <label for="message">{{"Message"|translate}}:</label>
+      <label for="message">{{ "Message" | translate }}:</label>
       <textarea id="message" formControlName="message"></textarea>
     </div>
-
     <div class="form-group">
-      <label for="phoneNumber">{{"Phone Number"|translate}}:</label>
+      <label for="phoneNumber">{{ "Phone Number" | translate }}:</label>
       <input id="phoneNumber" formControlName="phoneNumber" type="tel" />
     </div>
-    <button type="submit" (click)="onPlanSubmit()" [disabled]="planForm.invalid">{{"Submit"|translate}}</button>
+    <div class="form-group">
+      <div class="last">
+        <label for="password">{{ "Password" | translate }}:</label>
+        <input id="password" formControlName="password" [type]="password" />
+        <img
+          *ngIf="password === 'text'"
+          (click)="showPassword('password')"
+          src="assets/show.png"
+          alt="img"
+        />
+        <img
+          *ngIf="password === 'password'"
+          (click)="showPassword('text')"
+          src="assets/hide.png"
+          alt="img"
+        />
+      </div>
+      <div
+        *ngIf="
+          planForm.get('password')?.invalid && planForm.get('password')?.touched
+        "
+        class="error"
+      >
+        {{
+          "Please enter at least 4 character, with one Number and Symbol"
+            | translate
+        }}.
+      </div>
+    </div>
+    <button
+      type="submit"
+      (click)="onPlanSubmit()"
+      [disabled]="planForm.invalid"
+    >
+      {{ "Submit" | translate }}
+    </button>
   </form>
   <form *ngIf="toggleForm" [formGroup]="stadiumForm">
     <div class="form-group">
-      <label for="numberOfPeople">{{"Number of People"|translate}}</label>
+      <label for="numberOfPeople">{{ "Number of People" | translate }}</label>
       <input
         id="numberOfPeople"
         formControlName="numberOfPeople"
@@ -96,12 +134,12 @@
         "
         class="error"
       >
-        {{"Please enter a valid number (minimum 1)"|translate}}.
+        {{ "Please enter a valid number (minimum 1)" | translate }}.
       </div>
     </div>
 
     <div class="form-group">
-      <label for="ageGroup">{{"Age Group"|translate}}:</label>
+      <label for="ageGroup">{{ "Age Group" | translate }}:</label>
       <select id="ageGroup" formControlName="ageGroup">
         <option *ngFor="let option of ageOptions" [value]="option">
           {{ option }}
@@ -114,26 +152,58 @@
         "
         class="error"
       >
-        {{"Please select an age group"|translate}}.
+        {{ "Please select an age group" | translate }}.
       </div>
     </div>
 
     <div class="form-group">
       <label>
-        <input type="checkbox" formControlName="hasBall" /> {{"Do you have a ball"|translate}}?
+        <input type="checkbox" formControlName="hasBall" />
+        {{ "Do you have a ball" | translate }}?
       </label>
     </div>
 
     <div class="form-group">
-      <label for="message">{{"Message"|translate}}:</label>
+      <label for="message">{{ "Message" | translate }}:</label>
       <textarea id="message" formControlName="message"></textarea>
     </div>
 
     <div class="form-group">
-      <label for="phoneNumber">{{"Phone Number"|translate}}:</label>
+      <label for="phoneNumber">{{ "Phone Number" | translate }}:</label>
       <input id="phoneNumber" formControlName="phoneNumber" type="tel" />
     </div>
+    <div class="form-group">
+      <div class="last">
+        <label for="password">{{ "Password" | translate }}:</label>
+        <input id="password" formControlName="password" [type]="password" />
+        <img
+          *ngIf="password === 'text'"
+          (click)="showPassword('password')"
+          src="assets/show.png"
+          alt="img"
+        />
+        <img
+          *ngIf="password === 'password'"
+          (click)="showPassword('text')"
+          src="assets/hide.png"
+          alt="img"
+        />
+      </div>
+      <div
+        *ngIf="
+          stadiumForm.get('password')?.invalid && stadiumForm.get('password')?.touched
+        "
+        class="error"
+      >
+        {{
+          "Please enter at least 4 character, with one Number and Symbol"
+            | translate
+        }}.
+      </div>
+    </div>
 
-    <button type="submit" (click)="onSubmit()" [disabled]="stadiumForm.invalid">{{"Submit"|translate}}</button>
+    <button type="submit" (click)="onSubmit()" [disabled]="stadiumForm.invalid">
+      {{ "Submit" | translate }}
+    </button>
   </form>
 </div>

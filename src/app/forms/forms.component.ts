@@ -7,6 +7,7 @@ import {
   Validators,
   ValidatorFn,
   AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { RestService } from '../services/rest.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,8 +16,21 @@ export function futureDateValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     const selectedDate = new Date(control.value);
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Compare only the date part
-    return selectedDate < today ? { 'pastDate': true } : null;
+    today.setHours(0, 0, 0, 0);
+    return selectedDate < today ? { pastDate: true } : null;
+  };
+}
+
+export function characterAndSymbolValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value || '';
+    const hasCharacter = /[a-zA-Z]/.test(value);
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+
+    if (!hasCharacter || !hasSymbol) {
+      return { characterAndSymbol: true };
+    }
+    return null;
   };
 }
 
@@ -31,7 +45,8 @@ export class FormsComponent {
   stadiumForm: FormGroup;
   ageOptions: string[] = ['14+', '16+', '18+', '21+', '25+'];
   planForm: FormGroup;
-  minDate = new Date()
+  minDate = new Date();
+  password: 'password' | 'text' = 'password';
   @Input() toggleForm = true;
   @Input() stadiumIndex?: number;
 
@@ -42,6 +57,14 @@ export class FormsComponent {
       message: [''],
       phoneNumber: [null],
       ageGroup: [null, Validators.required],
+      password: [
+        '',
+        [
+          Validators.required,
+          characterAndSymbolValidator(),
+          Validators.minLength(4),
+        ],
+      ],
     });
     this.planForm = this.fb.group({
       numberOfPeople: [null, [Validators.required, Validators.min(1)]],
@@ -51,10 +74,15 @@ export class FormsComponent {
       ageGroup: [null, Validators.required],
       eventDate: [null, [Validators.required, futureDateValidator()]],
       eventTime: [null],
+      password: ['', [Validators.required, characterAndSymbolValidator(),Validators.minLength(4),]],
     });
   }
   toggleFormMethod(option: boolean) {
     this.toggleForm = option;
+  }
+  showPassword(value: 'text' | 'password') {
+    this.password = value;
+    console.log(this.password);
   }
 
   onSubmit() {
@@ -70,6 +98,9 @@ export class FormsComponent {
       const message = this.stadiumForm.get('message')?.getRawValue();
       const phoneNumber = this.stadiumForm.get('phoneNumber')?.getRawValue();
       const ageGroup = this.stadiumForm.get('ageGroup')?.getRawValue();
+      const password = this.stadiumForm.get('password')?.getRawValue();
+      console.log(password);
+      
       this.service
         .addJoin(
           this.stadiumIndex,
@@ -77,7 +108,8 @@ export class FormsComponent {
           hasBall,
           message,
           phoneNumber,
-          ageGroup
+          ageGroup,
+          password
         )
         .subscribe(() => {
           this.stadiumForm.reset();
@@ -97,6 +129,7 @@ export class FormsComponent {
       const ageGroup = this.planForm.get('ageGroup')?.getRawValue();
       const eventDate = this.planForm.get('eventDate')?.getRawValue();
       const eventTime = this.planForm.get('eventTime')?.getRawValue();
+      const password = this.planForm.get('password')?.getRawValue();
       this.service
         .addPlan(
           this.stadiumIndex,
@@ -106,7 +139,8 @@ export class FormsComponent {
           phoneNumber,
           ageGroup,
           eventDate,
-          eventTime
+          eventTime,
+          password
         )
         .subscribe(() => {
           this.planForm.reset();
