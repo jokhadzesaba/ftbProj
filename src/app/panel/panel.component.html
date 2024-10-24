@@ -6,7 +6,7 @@
   <div class="stadium">
     <h3>{{ "About Stadium" | translate }}</h3>
     <div class="stadium-info">
-      <li>{{ "Open" | translate }} {{ stadium.open }} A.M</li>
+      <li>{{ "Open" | translate }} {{ stadium.open }}</li>
       <li>
         {{ "Has Lights" | translate }}:
         {{ stadium.light | convertBoolean | translate }}
@@ -18,7 +18,7 @@
       </li>
       <li>{{ "Planned" | translate }}: {{ stadium.reservetions.length }}</li>
       <li>
-        {{ "Has Basketball Shield" | translate }}:{{
+        {{ "Has Basketball Shield" | translate }}: {{
           stadium.basketball | convertBoolean | translate
         }}
       </li>

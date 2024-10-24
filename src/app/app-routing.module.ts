@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MapComponent } from './map/map.component';
 
-const routes: Routes = [{ path: 'map', component: MapComponent },{path:'',redirectTo:'map', pathMatch:'full'}];
+const routes: Routes = [
+  { path: 'map', component: MapComponent },
+  { path: '', redirectTo: 'map', pathMatch: 'full' },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

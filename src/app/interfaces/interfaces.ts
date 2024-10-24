@@ -1,6 +1,6 @@
 export interface Stadium{
     light:boolean,
-    open:number,
+    open:string,
     basketball:boolean,
     recomendedPlay:string,
     reservetions:Reservetion[],

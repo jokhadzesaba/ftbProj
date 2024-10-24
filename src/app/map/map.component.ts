@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule, PanelComponent,TranslateModule],
+  imports: [CommonModule, GoogleMapsModule, PanelComponent, TranslateModule],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
 })
@@ -40,6 +40,52 @@ export class MapComponent {
       name: 'Stadium 3',
       position: { lat: 41.724565, lng: 44.721159 },
     },
+    {
+      stadiumIndex: 3,
+      name: 'Stadium 4',
+      position: { lat: 41.724489, lng: 44.726427 },
+    },
+    {
+      stadiumIndex: 4,
+      name: 'Stadium 5',
+      position: { lat: 41.725762, lng: 44.732134 },
+    },
+    {
+      stadiumIndex: 5,
+      name: 'Stadium 6',
+      position: { lat: 41.728229, lng: 44.745629 },
+    },
+    {
+      stadiumIndex: 6,
+      name: 'Stadium 7',
+      position: { lat: 41.7171812, lng: 44.7394371 },
+    },
+    {
+      stadiumIndex: 7,
+      name: 'Stadium 8',
+      position: { lat:41.725800, lng:44.771230 },
+    },
+    {
+      stadiumIndex: 8,
+      name: 'Stadium 9',
+      position: { lat:41.725711, lng:44.773613 },
+    },
+    {
+      stadiumIndex: 9,
+      name: 'Stadium 10',
+      position: { lat:41.725338, lng:44.771421 },
+    },
+    {
+      stadiumIndex: 10,
+      name: 'Stadium 11',
+      position: { lat:42.308235, lng:42.603456},
+    },
+    {
+      stadiumIndex: 11,
+      name: 'Stadium 12',
+      position: { lat:42.317654, lng:42.602486},
+    },
+    
   ];
 
   @ViewChild('mapElement', { static: false }) mapElement!: ElementRef;
@@ -78,6 +124,8 @@ export class MapComponent {
 
         marker.addListener('click', () => {
           this.onStadiumClick(stadium.stadiumIndex);
+          console.log(stadium.stadiumIndex);
+          
         });
       });
     } else {
@@ -88,10 +136,10 @@ export class MapComponent {
     this.stadiumIndex = stadiumIndex;
   }
 
-  changeLng(lng:'en'|'geo'){
-    this.translateService.use(lng)
+  changeLng(lng: 'en' | 'geo') {
+    this.translateService.use(lng);
   }
-  moveForward(){
-    this.rules = false
+  moveForward() {
+    this.rules = false;
   }
 }
